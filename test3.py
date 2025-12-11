@@ -1,2 +1,0 @@
-##py -V
-python --version
