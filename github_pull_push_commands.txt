@@ -1,0 +1,54 @@
+
+git push commands:
+=================================================
+
+create any file in local directory then push it to remote repository(directory) in github.
+
+c:/Users/prave/OneDrive/Desktop/Python/test2.py
+
+git init
+git add .\test2.py
+
+git commit -m "first commit"
+
+git branch -M main
+
+git remote add origin https://github.com/praveenmootha/test.git   ==> (repository always ends with.git)
+(above is creating a remote connection with name origin  and repository is test that got created in github)
+
+git push -u origin main   ===> ( this is to push to code to origin under main branh)
+
+similarly next push:
+
+c:/Users/prave/OneDrive/Desktop/Python/test3.py
+git push -u origin main
+git status
+git add .  ==> this is to push all files under that local directory)
+
+git status  ==>(to check the git branch name)
+
+git push -u origin main
+git remote add origin https://github.com/praveenmootha/test.git
+git push -u origin main
+git status
+
+
+git init
+git add .
+git remote add origin https://github.com/praveenmootha/test2.git
+git remote add origin https://github.com/praveenmootha/test3.git
+git remote add  https://github.com/praveenmootha/test3.git
+git remote add  -m https://github.com/praveenmootha/test3.git
+git add .
+git checkout main
+git remote add https://github.com/praveenmootha/test3.git
+git remote add origin https://github.com/praveenmootha/test3.git
+git push -u origin main
+
+#################################################################################################################################
+
+
+to pull the exisitng from github:
+================================================
+
+PS C:\Users\prave\OneDrive\Desktop\Python> git clone https://github.com/praveenmootha/test2.git
