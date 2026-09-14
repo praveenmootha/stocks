@@ -1,0 +1,52 @@
+stocks page notes:
+
+apache service runs regularly from windows services.
+it always opens a default file index.html located at C:\Apache24\htdocs.
+if we want to store any otehr page, we can save under: C:\Apache24\htdocs. ex: stocks.html
+
+this stocks.html file is copied over to this location from a python script when it runs from :C:\Users\prave\OneDrive\Desktop\Python\yfinance_stocks.py
+
+this python file can be executed from vscode.there is a run button at top right corner of the window.
+ the above pythn script also creates a page using flask web application tha can be accessed at : http://127.0.0.1:5000
+ 
+ this reports refresh every 15mins, we can change if we want.
+ it also refreshes when we click on the refresh button in flask page.
+ but it wont refresh on apach page.
+ 
+ ##############################################################
+ 
+ there is another page: http://127.0.0.1:5001
+ this shows even candle patterns and recommendations
+ 
+ 
+ the url's are:
+ 
+ http://127.0.0.1:5001/ ==> this is flask page
+http://localhost:5001/==> this is local host
+http://192.168.29.201:5001/ ==> this is apache page
+ 
+all above are same, only flask page refreshes whenever we click on refresh page. others will be refreshed anyway from every 15mins.
+
+##################################################
+
+an auto startup is already added to windows, it starts automatically with windows.
+
+in case if closed or not started, need to double click on this to start the flask app.
+
+C:\Users\prave\dist\pattern_stocks - Shortcut
+
+or seach for pattern in windows to get the file and run as administrator.
+
+###############################################
+
+run these comands to schedule in windows auto-start after reboot.
+
+cmd (C:\Users\prave>)
+
+pip install pyinstaller
+pyinstaller --onefile C:\Users\prave\OneDrive\Desktop\Python\pattern_stocks.py 
+
+the above commands will update the exe file under C:\Users\prave\dist
+file name: pattern_stocks.exe ==> this file will be used to start the service on reboot.
+
+

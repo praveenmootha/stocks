@@ -1,0 +1,124 @@
+237 INFO: PyInstaller: 6.19.0, contrib hooks: 2026.4
+237 INFO: Python: 3.14.0
+504 INFO: Platform: Windows-11-10.0.26200-SP0
+505 INFO: Python environment: C:\Users\prave\AppData\Local\Programs\Python\Python314
+508 INFO: Removing temporary files and cleaning cache in C:\Users\prave\AppData\Local\pyinstaller
+510 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\prave\\OneDrive\\Desktop\\Python',
+ 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\python314.zip',
+ 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\DLLs',
+ 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib',
+ 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314',
+ 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages',
+ 'C:\\Users\\prave\\OneDrive\\Desktop\\Python']
+1258 INFO: checking Analysis
+1258 INFO: Building Analysis because Analysis-00.toc is non existent
+1258 INFO: Looking for Python shared library...
+1258 INFO: Using Python shared library: C:\Users\prave\AppData\Local\Programs\Python\Python314\python314.dll
+1258 INFO: Running Analysis Analysis-00.toc
+1258 INFO: Target bytecode optimization level: 0
+1259 INFO: Initializing module dependency graph...
+1260 INFO: Initializing module graph hook caches...
+1274 INFO: Analyzing modules for base_library.zip ...
+4356 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+5009 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+5282 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+5291 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+7187 INFO: Caching module dependency graph...
+7206 INFO: Analyzing C:\Users\prave\OneDrive\Desktop\Python\pattern_stocks.py
+7278 INFO: Processing standard module hook 'hook-numpy.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+7840 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+7911 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+8129 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+8749 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+8826 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+9686 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9688 INFO: SetuptoolsInfo: initializing cached setuptools info...
+10930 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+11195 INFO: Processing standard module hook 'hook-pandas.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+12842 INFO: Processing standard module hook 'hook-pytz.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+13091 INFO: Processing standard module hook 'hook-scipy.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+14447 INFO: Processing standard module hook 'hook-pycparser.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+15035 INFO: Processing standard module hook 'hook-setuptools.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+15050 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15076 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15076 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+15088 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15089 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+15296 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15496 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+15497 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15505 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15505 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+15655 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15656 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
+15683 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+15787 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+15789 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
+16060 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+16060 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+16559 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+16560 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+17624 INFO: Processing standard module hook 'hook-scipy.linalg.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+17772 INFO: Processing standard module hook 'hook-scipy.special._ufuncs.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+18855 INFO: Processing standard module hook 'hook-scipy.spatial._ckdtree.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+19341 INFO: Processing standard module hook 'hook-scipy.spatial.transform.rotation.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+20432 INFO: Processing standard module hook 'hook-scipy.stats._stats.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+20945 INFO: Processing standard module hook 'hook-scipy.sparse.csgraph.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+21787 INFO: Processing standard module hook 'hook-scipy.special._ellip_harm_2.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+24067 INFO: Processing standard module hook 'hook-pandas.io.formats.style.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+26730 INFO: Processing standard module hook 'hook-pandas.plotting.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+27836 INFO: Processing standard module hook 'hook-sqlite3.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+28643 INFO: Processing standard module hook 'hook-pandas.io.clipboard.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+28901 INFO: Processing standard module hook 'hook-dateutil.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+29018 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+29350 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+29353 INFO: Processing standard module hook 'hook-lxml.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+29702 INFO: Processing standard module hook 'hook-lxml.etree.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+29708 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks'
+30768 INFO: Processing standard module hook 'hook-certifi.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+31316 INFO: Processing pre-safe-import-module hook 'hook-platformdirs.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+31326 INFO: Processing standard module hook 'hook-platformdirs.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+31434 INFO: Processing standard module hook 'hook-websockets.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+34028 INFO: Processing standard module hook 'hook-jinja2.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+34589 INFO: Processing module hooks (post-graph stage)...
+34782 INFO: Processing standard module hook 'hook-lxml.isoschematron.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+34982 WARNING: Hidden import "scipy.special._cdflib" not found!
+35029 INFO: Processing standard module hook 'hook-lxml.objectify.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+35047 INFO: Performing binary vs. data reclassification (636 entries)
+35087 INFO: Looking for ctypes DLLs
+35209 INFO: Analyzing run-time hooks ...
+35215 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+35220 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+35224 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+35227 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+35258 INFO: Creating base_library.zip...
+35273 INFO: Looking for dynamic libraries
+38350 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\numpy.libs', 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\pandas.libs', 'C:\\Users\\prave\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\site-packages\\scipy.libs']
+38350 INFO: Extra DLL search directories (PATH): []
+39321 INFO: Warnings written to C:\Users\prave\build2\pattern_stocks\warn-pattern_stocks.txt
+39446 INFO: Graph cross-reference written to C:\Users\prave\build2\pattern_stocks\xref-pattern_stocks.html
+39502 INFO: checking PYZ
+39502 INFO: Building PYZ because PYZ-00.toc is non existent
+39502 INFO: Building PYZ (ZlibArchive) C:\Users\prave\build2\pattern_stocks\PYZ-00.pyz
+40526 INFO: Building PYZ (ZlibArchive) C:\Users\prave\build2\pattern_stocks\PYZ-00.pyz completed successfully.
+40549 INFO: checking PKG
+40549 INFO: Building PKG because PKG-00.toc is non existent
+40549 INFO: Building PKG (CArchive) pattern_stocks.pkg
+40603 INFO: Building PKG (CArchive) pattern_stocks.pkg completed successfully.
+40604 INFO: Bootloader C:\Users\prave\AppData\Local\Programs\Python\Python314\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+40604 INFO: checking EXE
+40604 INFO: Building EXE because EXE-00.toc is non existent
+40604 INFO: Building EXE from EXE-00.toc
+40604 INFO: Copying bootloader EXE to C:\Users\prave\build2\pattern_stocks\pattern_stocks.exe
+40870 INFO: Copying icon to EXE
+40959 INFO: Copying 0 resources to EXE
+40959 INFO: Embedding manifest in EXE
+41036 INFO: Appending PKG archive to EXE
+41160 INFO: Fixing EXE headers
+41650 INFO: Building EXE from EXE-00.toc completed successfully.
+41655 INFO: checking COLLECT
+41655 INFO: Building COLLECT because COLLECT-00.toc is non existent
+41656 INFO: Building COLLECT COLLECT-00.toc
+42514 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+42535 INFO: Build complete! The results are available in: C:\Users\prave\dist2
