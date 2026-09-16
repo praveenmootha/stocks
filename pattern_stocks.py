@@ -1375,7 +1375,7 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
                 const gain = beepAudioContext.createGain();
                 oscillator.type = 'sine';
                 oscillator.frequency.value = 880;
-                gain.gain.setValueAtTime(0.08, beepAudioContext.currentTime);
+                gain.gain.setValueAtTime(0.2, beepAudioContext.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, beepAudioContext.currentTime + 0.18);
                 oscillator.connect(gain);
                 gain.connect(beepAudioContext.destination);
