@@ -1060,6 +1060,12 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
   .price.target-reached{{animation:blink 0.6s infinite;background:#ffeb3b;color:#d32f2f;font-size:1.1em;padding:4px;border-radius:4px;}}
     .up-down.target-reached{{animation:blink 0.6s infinite;background:#ffeb3b;color:#d32f2f;padding:4px;border-radius:4px;}}
   .timestamp{{color:#7f8c8d;font-size:0.9em;margin-top:15px}}
+    #flashNotification{{position:fixed;right:20px;bottom:20px;z-index:2000;display:flex;flex-direction:column;gap:8px;max-width:min(360px,calc(100vw - 40px));}}
+    .flash-toast{{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 16px;border-radius:6px;background:#2c3e50;color:white;box-shadow:0 4px 12px rgba(0,0,0,0.25);font-weight:600;animation:toast-in 0.25s ease-out;}}
+    .flash-toast-close{{border:0;background:transparent;color:white;font-size:20px;line-height:1;cursor:pointer;padding:0 2px;}}
+    .flash-toast.up{{border-left:5px solid #27ae60;}}
+    .flash-toast.down{{border-left:5px solid #e74c3c;}}
+    @keyframes toast-in{{from{{opacity:0;transform:translateY(12px)}}to{{opacity:1;transform:translateY(0)}}}}
 </style>
 </head>
 <body>
@@ -1071,6 +1077,7 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
             <option value="midnight">Midnight</option>
         </select>
     </label>
+    <div id="flashNotification" aria-live="polite" aria-atomic="true"></div>
         <h2 style="display:inline-block;">NSE Stock Prices</h2>
   <div class="nav" style="margin-bottom:15px;">
     <a href="/patterns" style="color:#3498db;text-decoration:none;font-weight:600;">Analyze candle patterns</a>
@@ -1347,6 +1354,44 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
             }}
         }}
     
+        const notifiedFlashes = new Set();
+        let beepAudioContext;
+
+        function playFlashBeep() {{
+            try {{
+                beepAudioContext = beepAudioContext || new (window.AudioContext || window.webkitAudioContext)();
+                if (beepAudioContext.state === 'suspended') beepAudioContext.resume();
+                const oscillator = beepAudioContext.createOscillator();
+                const gain = beepAudioContext.createGain();
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 880;
+                gain.gain.setValueAtTime(0.08, beepAudioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, beepAudioContext.currentTime + 0.18);
+                oscillator.connect(gain);
+                gain.connect(beepAudioContext.destination);
+                oscillator.start();
+                oscillator.stop(beepAudioContext.currentTime + 0.18);
+            }} catch (e) {{
+                // Audio can be unavailable or blocked until the user interacts with the page.
+            }}
+        }}
+
+        function showFlashNotification(ticker, direction) {{
+            const notification = document.createElement('div');
+            notification.className = `flash-toast ${{direction}}`;
+            const message = document.createElement('span');
+            message.textContent = `${{ticker}} is flashing ${{direction.toUpperCase()}}`;
+            const closeButton = document.createElement('button');
+            closeButton.className = 'flash-toast-close';
+            closeButton.type = 'button';
+            closeButton.setAttribute('aria-label', 'Close notification');
+            closeButton.textContent = 'x';
+            closeButton.addEventListener('click', () => notification.remove());
+            notification.append(message, closeButton);
+            document.getElementById('flashNotification')?.appendChild(notification);
+            playFlashBeep();
+        }}
+
     // Check if price reached target and apply blinking
         function checkTargetPrices() {{
             const rows = document.querySelectorAll('table tbody tr');
