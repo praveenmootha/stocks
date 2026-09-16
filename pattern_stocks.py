@@ -1417,9 +1417,10 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
                     // Blink the Up/Down value when current price is within ±1% of target.
                     const percentageDifference = Math.abs(currentPrice - targetPrice) / targetPrice;
                     const isFlashing = percentageDifference <= 0.01;
+                    const shouldNotify = percentageDifference <= 0.005;
                     if (upDownValue) {{
                         upDownValue.classList.toggle('target-reached', isFlashing);
-                        if (isFlashing) {{
+                        if (shouldNotify) {{
                             const ticker = row.getAttribute('data-ticker');
                             const direction = upDownValue.classList.contains('down') ? 'down' : 'up';
                             const notificationKey = `${{ticker}}:${{direction}}`;
