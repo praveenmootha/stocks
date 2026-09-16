@@ -5,6 +5,7 @@ import time
 import yfinance as yf
 # removed direct NSE scraping (requests/BeautifulSoup) per user request
 import pandas as pd
+from concurrent.futures import ThreadPoolExecutor
 from flask import Flask, make_response, request, jsonify
 from datetime import datetime, timedelta
 import calendar
@@ -67,19 +68,7 @@ def save_apache_copy(html):
 def save_current_apache_copy():
     """Generate current Flask HTML and save it to Apache root"""
     global current_tickers, current_targets
-    data = []
-    fifty_two_week_highs = {}
-    fifty_two_week_lows = {}
-    for symbol in current_tickers:
-        price = get_nse_price(symbol)
-        if price:
-            data.append([symbol, f"₹{price:.2f}"])
-            high_52w = get_52_week_high(symbol)
-            if high_52w:
-                fifty_two_week_highs[symbol] = high_52w
-            low_52w = get_52_week_low(symbol)
-            if low_52w:
-                fifty_two_week_lows[symbol] = low_52w
+    data, fifty_two_week_highs, fifty_two_week_lows = get_stock_report_data(current_tickers)
     nse_movers = fetch_nse_top_movers(10)
     html = build_stock_report_html(data, current_tickers, current_targets, fifty_two_week_highs, None, nse_movers, {}, fifty_two_week_lows, get_nse_index_data())
     save_apache_copy(html)
@@ -134,7 +123,7 @@ NSE_MOVER_UNIVERSE = [
 
 NSE_INDEX_SYMBOLS = {
     'NIFTY 50': '^NSEI',
-    'NIFTY Midcap 100': '^NSEMDCP100',
+    'NIFTY Midcap 50': '^NSEMDCP50',
     'NIFTY Bank': '^NSEBANK',
     'NIFTY Pharma': '^CNXPHARMA'
 }
@@ -160,9 +149,7 @@ def get_nse_price(ticker_symbol):
     
     try:
         stock = yf.Ticker(nse_ticker)
-        with open(os.devnull, 'w') as devnull:
-            with contextlib.redirect_stderr(devnull):
-                    data = stock.history(period='1d', timeout=10)
+        data = stock.history(period='1d', timeout=10)
         if data.empty or 'Close' not in data.columns or data['Close'].empty:
             if DEBUG:
                 print(f"No price data found for {ticker_symbol}")
@@ -179,7 +166,7 @@ def get_nse_index_data():
     indexes = []
     for name, symbol in NSE_INDEX_SYMBOLS.items():
         try:
-            data = yf.Ticker(symbol).history(period='2d', interval='1d', timeout=10)
+            data = yf.Ticker(symbol).history(period='5d', interval='1d', timeout=10)
             if data.empty or 'Close' not in data.columns or len(data['Close']) < 1:
                 continue
             close = data['Close'].dropna()
@@ -208,9 +195,7 @@ def get_52_week_high(ticker_symbol):
     
     try:
         stock = yf.Ticker(nse_ticker)
-        with open(os.devnull, 'w') as devnull:
-            with contextlib.redirect_stderr(devnull):
-                    data = stock.history(period='1y', timeout=10)
+        data = stock.history(period='1y', timeout=10)
         if data.empty or 'High' not in data.columns or data['High'].empty:
             if DEBUG:
                 print(f"No 52-week high data found for {ticker_symbol}")
@@ -227,9 +212,7 @@ def get_52_week_low(ticker_symbol):
     nse_ticker = f"{ticker_symbol}.NS"
     try:
         stock = yf.Ticker(nse_ticker)
-        with open(os.devnull, 'w') as devnull:
-            with contextlib.redirect_stderr(devnull):
-                data = stock.history(period='1y', timeout=10)
+        data = stock.history(period='1y', timeout=10)
         if data.empty or 'Low' not in data.columns or data['Low'].empty:
             return None
         return data['Low'].min()
@@ -237,6 +220,33 @@ def get_52_week_low(ticker_symbol):
         if DEBUG:
             print(f"Error fetching 52-week low for {ticker_symbol}: {e}")
         return None
+
+
+def get_stock_report_data(symbols):
+    """Fetch the independent price and 52-week values concurrently."""
+    def fetch_symbol_data(symbol):
+        price = get_nse_price(symbol)
+        high = get_52_week_high(symbol) if price else None
+        low = get_52_week_low(symbol) if price else None
+        return symbol, price, high, low
+
+    data = []
+    fifty_two_week_highs = {}
+    fifty_two_week_lows = {}
+    worker_count = min(8, max(1, len(symbols)))
+    with ThreadPoolExecutor(max_workers=worker_count) as executor:
+        results = executor.map(fetch_symbol_data, symbols)
+        for symbol, price, high_52w, low_52w in results:
+            if price:
+                data.append([symbol, f"₹{price:.2f}"])
+                if high_52w:
+                    fifty_two_week_highs[symbol] = high_52w
+                if low_52w:
+                    fifty_two_week_lows[symbol] = low_52w
+
+    return data, fifty_two_week_highs, fifty_two_week_lows
+
+
 def validate_nse_ticker(ticker_symbol):
     """
     Validate if a ticker is a valid NSE stock
@@ -524,8 +534,8 @@ def compute_daily_movers_all(symbols=None, top_n=10, chunk_size=200):
             continue
         tickers_ns = [f"{s}.NS" for s in chunk]
         try:
-            # download 2 days of data for the chunk
-            data = yf.download(tickers_ns, period='2d', group_by='ticker', threads=False, progress=False, timeout=10)
+            # Request enough calendar days to include two trading sessions.
+            data = yf.download(tickers_ns, period='5d', group_by='ticker', threads=False, progress=False, timeout=10)
             if DEBUG:
                 try:
                     print(f"Downloaded chunk {i}:{tickers_ns[:5]} -> columns sample: {list(data.columns)[:10]}")
@@ -537,7 +547,7 @@ def compute_daily_movers_all(symbols=None, top_n=10, chunk_size=200):
             # fallback: per-symbol
             for s in chunk:
                 try:
-                    df = yf.Ticker(f"{s}.NS").history(period='2d')
+                    df = yf.Ticker(f"{s}.NS").history(period='5d')
                     if df is None or df.empty or 'Close' not in df.columns or len(df['Close']) < 2:
                         continue
                     prev = float(df['Close'].iloc[-2])
@@ -560,9 +570,9 @@ def compute_daily_movers_all(symbols=None, top_n=10, chunk_size=200):
                     if key in data.columns.get_level_values(0):
                         ticker_data = data[key]
                         if 'Close' in ticker_data.columns:
-                            close_series = ticker_data['Close']
+                                close_series = ticker_data['Close'].dropna()
                         elif 'Adj Close' in ticker_data.columns:
-                            close_series = ticker_data['Adj Close']
+                            close_series = ticker_data['Adj Close'].dropna()
                         else:
                             continue
                     else:
@@ -983,7 +993,7 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
 <head>
 <meta charset="utf-8">
 <title>NSE Stock Prices</title>
-<meta http-equiv="refresh" content="300">
+<meta http-equiv="refresh" content="120">
 <style>
   body{{font-family:Arial,Helvetica,sans-serif;padding:20px;background:#f5f7fa;color:#333}}
     body.skin-ocean{{background:#eef7fb;color:#183642;}}
@@ -1130,7 +1140,7 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
   
   
   <p class="timestamp">Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-  <p style="color:#7f8c8d;font-size:0.9em;">Auto-refreshes every 5 minutes</p>
+    <p style="color:#7f8c8d;font-size:0.9em;">Auto-refreshes every 2 minutes</p>
   
   <script>
     // Popular NSE ticker symbols for autocomplete
@@ -1406,8 +1416,18 @@ def build_stock_report_html(data, current_symbols, target_prices=None, fifty_two
                 if (!isNaN(currentPrice) && !isNaN(targetPrice) && targetPrice > 0) {{
                     // Blink the Up/Down value when current price is within ±1% of target.
                     const percentageDifference = Math.abs(currentPrice - targetPrice) / targetPrice;
+                    const isFlashing = percentageDifference <= 0.01;
                     if (upDownValue) {{
-                        upDownValue.classList.toggle('target-reached', percentageDifference <= 0.01);
+                        upDownValue.classList.toggle('target-reached', isFlashing);
+                        if (isFlashing) {{
+                            const ticker = row.getAttribute('data-ticker');
+                            const direction = upDownValue.classList.contains('down') ? 'down' : 'up';
+                            const notificationKey = `${{ticker}}:${{direction}}`;
+                            if (!notifiedFlashes.has(notificationKey)) {{
+                                notifiedFlashes.add(notificationKey);
+                                showFlashNotification(ticker, direction);
+                            }}
+                        }}
                     }}
                     if (percentageDifference <= 0.005) {{
                         // Debugging aid for client-side console
@@ -1651,20 +1671,8 @@ def futures_candle_forecast():
 @app.route('/')
 def stock_report():
     global current_tickers, current_targets
-    
-    data = []
-    fifty_two_week_highs = {}
-    fifty_two_week_lows = {}
-    for symbol in current_tickers:
-        price = get_nse_price(symbol)
-        if price:
-            data.append([symbol, f"₹{price:.2f}"])
-            high_52w = get_52_week_high(symbol)
-            if high_52w:
-                fifty_two_week_highs[symbol] = high_52w
-            low_52w = get_52_week_low(symbol)
-            if low_52w:
-                fifty_two_week_lows[symbol] = low_52w
+
+    data, fifty_two_week_highs, fifty_two_week_lows = get_stock_report_data(current_tickers)
 
     nse_movers = fetch_nse_top_movers(10)
     html = build_stock_report_html(data, current_tickers, current_targets, fifty_two_week_highs, {}, nse_movers, {}, fifty_two_week_lows, get_nse_index_data())
